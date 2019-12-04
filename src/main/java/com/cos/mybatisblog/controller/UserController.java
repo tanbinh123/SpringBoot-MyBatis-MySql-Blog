@@ -1,22 +1,22 @@
 package com.cos.mybatisblog.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.cos.mybatisblog.model.User;
 import com.cos.mybatisblog.repository.UserRepository;
@@ -75,22 +75,29 @@ public class UserController {
 	
 	//나중에 해야함
 
+	@Value("${file.path}") 
+	private String resourcePath;
+	
 	@PostMapping("/profileUpdate")
-	public @ResponseBody String profileUpdate(HttpSession session, MultipartHttpServletRequest mtfRequest) {
-
-		MultipartFile mf = mtfRequest.getFile("userProfile");
-		String path = mtfRequest.getRealPath("/resources/static/userProfile");
-		path = path + "\\";
-		String path2 = "C:/workspace/springWork/mybatis-blog/src/main/webapp/resources/static/userProfile/";
-		String safeFile = path2 + System.currentTimeMillis() + mf.getOriginalFilename();
+	public @ResponseBody String imageUpload(
+			@RequestParam("file") MultipartFile file,HttpSession session) {
+	
+		UUID uuid = UUID.randomUUID();
+		String uuidFileName = uuid+"_"+file.getOriginalFilename();
+		
+		Path filePath = Paths.get(resourcePath+uuidFileName);
+		System.out.println("filePath : "+filePath);
 		try {
-			mf.transferTo(new File(safeFile));
-		} catch (Exception e) {
+			Files.write(filePath, file.getBytes());
+			User user = (User)session.getAttribute("user");
+			user.setUserProfile("/userProfile/" + uuidFileName);
+			uRepo.updateUserProFile(user);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		
-		return "test";
+		return Script.href("/board");
 	}
+
 
 }

@@ -1,0 +1,50 @@
+create user 'mblog'@'%' identified by 'bitc5600';
+GRANT ALL PRIVILEGES ON *.* TO 'mblog'@'%';
+create database mblog;
+use mblog;
+
+
+CREATE TABLE user(
+   id int auto_increment primary key,
+    username varchar(100) not null unique,
+    password varchar(100) not null,
+    email varchar(100) not null,
+    userProfile varchar(200) ,
+    createDate timestamp
+) engine=InnoDB default charset=utf8;
+
+ALTER TABLE `mblog`.`user` 
+CHANGE COLUMN `userProfile` `userProfile` VARCHAR(200) NULL DEFAULT '/userProfile/default.jpg' ;
+
+
+CREATE TABLE board(
+   id int auto_increment primary key,
+    userId int,
+    title varchar(100) not null,
+    content longtext,
+    readCount int default 0,
+    createDate timestamp,
+    foreign key (userId) references user (id)
+) engine=InnoDB default charset=utf8;
+
+insert into user(username,password,email,userProfile,createDate)
+values('admin','admin','admin@admin.com','/test.png',now());
+
+insert into board(title, content, createDate)
+values('test12','testtest12',now());
+
+commit;
+
+
+select * from user;
+
+SELECT * FROM user WHERE username='admin' and password='admin';
+
+select * from board;
+SELECT * FROM board ORDER BY id DESC;
+
+SELECT * FROM board b, user u WHERE b.userId = u.id ORDER BY b.id DESC limit 0, 3;
+SELECT * FROM board b, user u WHERE b.userId = u.id ORDER BY b.id DESC limit 3, 3;
+SELECT * FROM board b, user u WHERE b.userId = u.id ORDER BY b.id DESC limit 6, 3;
+
+SELECT * FROM board ORDER BY id DESC limit 6, 3;

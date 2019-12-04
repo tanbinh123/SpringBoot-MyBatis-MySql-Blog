@@ -81,7 +81,7 @@ body {
 					<h6 class="text-center mb-4 text-muted">프로필 사진 변경</h6>
 					<form action="/user/profileUpdate" method="POST" enctype="multipart/form-data">
 						<div class="custom-file overflow-hidden rounded-pill mb-5">
-							<input name="file" id="customFile" type="file" class="custom-file-input rounded-pill"> <label id="fileNameLabel" for="customFile" class="custom-file-label rounded-pill">Choose file</label>
+							<input name="userProfile" id="customFile" type="file" class="custom-file-input rounded-pill"> <label id="fileNameLabel" for="customFile" class="custom-file-label rounded-pill">Choose file</label>
 						</div>
 						<!-- End -->
 
