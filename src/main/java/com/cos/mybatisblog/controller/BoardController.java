@@ -39,12 +39,13 @@ public class BoardController {
 	
 	@GetMapping("/list/{page}")
 	public String boardList(Model model, @PathVariable int page) {
+		model.addAttribute("page",page);
 		page = page - 1;
 		page = page * 3;
 		List<Board> boards = boardRepository.findAll(page);
 		Utils.setPreviewImg(boards); // 이미지를 previewImg에 저장
 		Utils.setPreviewContent(boards); // 이미지 태그 제거
-		model.addAttribute("boards", boards);
+		model.addAttribute("boards", boards);		
 		// webapp/WEB-INF/views/post/list.jsp
 		return "board/list";
 	}
