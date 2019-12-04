@@ -1,0 +1,20 @@
+#띄어쓰기 및 들여쓰기 주의
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+
+      
+  datasource:
+    url: jdbc:mysql://localhost:3306/mblog?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: mblog
+    password: bitc5600
