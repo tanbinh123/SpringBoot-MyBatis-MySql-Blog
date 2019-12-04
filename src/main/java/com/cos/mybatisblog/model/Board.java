@@ -19,4 +19,5 @@ public class Board {
 	private String username; //DB랑 상관X
 	private String email; //DB랑 상관X
 	private String userProfile; //DB랑 상관X
+	private String previewImg;
 }

@@ -1,7 +1,7 @@
 #띄어쓰기 및 들여쓰기 주의
 
 server:
-  port: 8080
+  port: 8000
   servlet:
     context-path: /
     

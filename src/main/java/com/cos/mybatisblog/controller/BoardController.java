@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +17,7 @@ import com.cos.mybatisblog.model.Board;
 import com.cos.mybatisblog.model.User;
 import com.cos.mybatisblog.repository.BoardRepository;
 import com.cos.mybatisblog.utils.Script;
+import com.cos.mybatisblog.utils.Utils;
 
 //Model은 데이터를 Controller에서 Presentation 계층(View:jsp)까지 들고간다
 
@@ -42,6 +42,8 @@ public class BoardController {
 		page = page - 1;
 		page = page * 3;
 		List<Board> boards = boardRepository.findAll(page);
+		Utils.setPreviewImg(boards); // 이미지를 previewImg에 저장
+		Utils.setPreviewContent(boards); // 이미지 태그 제거
 		model.addAttribute("boards", boards);
 		// webapp/WEB-INF/views/post/list.jsp
 		return "board/list";
@@ -70,6 +72,7 @@ public class BoardController {
 		board.setUserId(user.getId());
 		board.setUsername(user.getUsername());
 		board.setUserProfile(user.getUserProfile());
+		Utils.setPreviewYoutube(board);
 		try {
 			boardRepository.save(board);
 		} catch (Exception e) {

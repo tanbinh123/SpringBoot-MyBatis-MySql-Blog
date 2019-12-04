@@ -40,10 +40,10 @@
 		<c:forEach var="board" items="${boards}">
 	        <!-- Blog Post -->
 	        <div class="card mb-4">
-	          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+	          <img class="card-img-top" src="${board.previewImg}" alt="Card image cap" style="max-height:300px;">
 	          <div class="card-body">
 	            <h2 class="card-title">${board.title}</h2>
-	            <p class="card-text">${board.content}</p>
+	            <div class="card-text" style="display: -webkit-box; -webkit-box-orient: vertical;text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: normal; line-height: 1.2; height: 5em; -webkit-line-clamp: 2; margin-bottom: 20px; word-break:break-all">${board.content}</div>
 	            <a href="/board/detail/${board.id}" class="btn btn-primary">Read More &rarr;</a>
 	          </div>
 	          <div class="card-footer text-muted">
