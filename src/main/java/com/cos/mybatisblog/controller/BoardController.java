@@ -111,7 +111,7 @@ public class BoardController {
 		
 		User user = (User) session.getAttribute("user");
 		if (user.getId() != board.getUserId()) {
-			return Script.Back("권한이 없습니다.");
+			return "user/loginForm";
 		}
 		
 		model.addAttribute("board", board);
@@ -121,9 +121,11 @@ public class BoardController {
 	@PostMapping("/update")
 	public String update(Board board, HttpSession session) { // param, form
 
+		Board b = boardRepository.findById(board.getId());
+		
 		User user = (User) session.getAttribute("user");
-		if (user.getId() != board.getId()) {
-			return Script.Back("권한이 없습니다.");
+		if (user.getId() != b.getUserId()) {
+			return "user/loginForm";
 		}
 
 		try {
