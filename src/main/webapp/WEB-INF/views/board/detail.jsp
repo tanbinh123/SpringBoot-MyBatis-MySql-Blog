@@ -56,24 +56,27 @@
         <!-- Post Content -->
         ${board.content}
         <hr>
-
-        <form name="delete" action="/board/delete" method="POST">
-        <input type="hidden" name="id" value="${board.id}" />
-        </form>
         
+        
+        <c:if test="${board.userId == sessionScope.user.id}">
+        
+	        <!--  삭제 수정 버튼 시작 -->
+	
+	        <form name="delete" action="/board/delete" method="POST">
+	        <input type="hidden" name="id" value="${board.id}" />
+	        </form>
+	       	
+	
+	        <div class="col-lg-8">
+	        <a href="javascript:document.delete.submit()" class="btn btn-primary">삭제하기</a>
+	        <a href="/board/updateForm/${board.id}" class="btn btn-primary">수정하기</a>
+	        </div>        
+	        <br/>
+	        <br/>
+	
+	 		<!--  삭제 수정 버튼 끝 -->
 
-       	
-
-        <div class="col-lg-8">
-        <a href="javascript:document.delete.submit()" class="btn btn-primary">삭제하기</a>
-        <a href="/board/updateForm/${board.id}" class="btn btn-primary">수정하기</a>
-        </div>        
-        <br/>
-        <br/>
-
-
-
-
+		</c:if>
 
       </div>
 

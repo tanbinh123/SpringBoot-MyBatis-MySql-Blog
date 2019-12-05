@@ -69,11 +69,10 @@ public class UserController {
 	}
 
 	@GetMapping("/profileUpdateForm")
-	public String profileUpdateForm() {
+	public String profileUpdateForm() {		
 		return "user/profileUpdateForm";
 	}
 	
-	//나중에 해야함
 
 	@Value("${file.path}") 
 	private String resourcePath;

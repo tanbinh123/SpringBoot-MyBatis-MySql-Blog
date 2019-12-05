@@ -1,7 +1,7 @@
 #띄어쓰기 및 들여쓰기 주의
 
 server:
-  port: 8080
+  port: 8000
   servlet:
     context-path: /
     
@@ -18,3 +18,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: mblog
     password: bitc5600
+
+    
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1MB
+      
+file:
+  path: C:/Users/LEE/Desktop/workspace/spring/mybatis-blog/src/main/resources/static/userProfile/

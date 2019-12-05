@@ -10,4 +10,8 @@
 		INSERT INTO user(username,password,email,createDate) 
 		VALUES(#{username},#{password},#{email},now())
 	</insert>
+	<update id="updateUserProFile">
+		UPDATE user SET userProfile=#{userProfile} 
+		WHERE id=#{id}
+	</update>
 </mapper>
