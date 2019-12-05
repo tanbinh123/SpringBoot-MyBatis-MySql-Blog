@@ -84,10 +84,14 @@ public class BoardController {
 	@PostMapping("/delete")
 	public @ResponseBody String detele(int id, HttpSession session) {
 
+
+		Board board = boardRepository.findById(id);
+		
 		User user = (User) session.getAttribute("user");
-		if (user.getId() != id) {
+		if (user.getId() != board.getUserId()) {
 			return Script.Back("권한이 없습니다.");
 		}
+		
 
 		try {
 			boardRepository.delete(id);
@@ -101,12 +105,15 @@ public class BoardController {
 	@GetMapping("/updateForm/{id}")
 	public String updateForm(@PathVariable int id, Model model, HttpSession session) {
 
-		User user = (User) session.getAttribute("user");
-		if (user.getId() != id) {
-			return Script.Back("권한이 없습니다.");
-		}
+		
 
 		Board board = boardRepository.findById(id);
+		
+		User user = (User) session.getAttribute("user");
+		if (user.getId() != board.getUserId()) {
+			return Script.Back("권한이 없습니다.");
+		}
+		
 		model.addAttribute("board", board);
 		return "board/updateForm";
 	}
